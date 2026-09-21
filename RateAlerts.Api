@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.12009.203 stable
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateAlerts.Api", "backend\RateAlerts.Api.csproj", "{C38249C0-EA4C-639C-AE51-C33F111AA46D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateAlerts.Api.Tests", "RateAlerts.Api.Tests\RateAlerts.Api.Tests.csproj", "{13203024-0707-4D53-84F9-239F77D1E55A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C38249C0-EA4C-639C-AE51-C33F111AA46D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C38249C0-EA4C-639C-AE51-C33F111AA46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C38249C0-EA4C-639C-AE51-C33F111AA46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C38249C0-EA4C-639C-AE51-C33F111AA46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13203024-0707-4D53-84F9-239F77D1E55A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13203024-0707-4D53-84F9-239F77D1E55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13203024-0707-4D53-84F9-239F77D1E55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13203024-0707-4D53-84F9-239F77D1E55A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA9B092B-D284-4AC5-92E1-7BB5319A0748}
+	EndGlobalSection
+EndGlobal
