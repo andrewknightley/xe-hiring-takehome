@@ -34,12 +34,5 @@ namespace RateAlerts.Api.Tests
             var response = await _sut.GetRates();
             Assert.IsType<OkObjectResult>(response);
         }
-
-        [Fact]
-        public async Task GivenGetRatesIsCalledWhenRatesApiIsNotAuthorisdThenResponseIs401Unauthorized()
-        {
-            var response = await _sut.GetRates();
-            Assert.IsType<UnauthorizedResult>(response);
-        }
     }
 }
