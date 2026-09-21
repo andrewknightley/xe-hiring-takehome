@@ -3,19 +3,18 @@ using RateAlerts.Api.Models;
 namespace RateAlerts.Api.Services;
 
 /// <summary>
-/// In-memory implementation of alert storage.
-/// Thread-safe using lock-based synchronization.
-/// Trade-off: Alerts are lost when the application restarts.
+/// In-memory implementation of alert service.
+/// Delegates alert storage to an <see cref="IAlertStore"/> implementation.
 /// </summary>
 public class InMemoryAlertService : IAlertService
 {
-    private readonly List<Alert> _alerts = new();
-    private readonly object _sync = new();
+    private readonly IAlertStore _alertStore;
     private readonly IRatesProvider _ratesProvider;
 
-    public InMemoryAlertService(IRatesProvider ratesProvider)
+    public InMemoryAlertService(IRatesProvider ratesProvider, IAlertStore alertStore)
     {
         _ratesProvider = ratesProvider;
+        _alertStore = alertStore;
     }
 
     public Task<Alert> CreateAlertAsync(CreateAlertRequest request)
@@ -38,34 +37,24 @@ public class InMemoryAlertService : IAlertService
             CreatedAt = DateTime.UtcNow
         };
 
-        lock (_sync)
-        {
-            _alerts.Add(alert);
-        }
+        _alertStore.Add(alert);
 
         return Task.FromResult(alert);
     }
 
     public Task<IReadOnlyList<Alert>> GetAllAlertsAsync()
     {
-        lock (_sync)
-        {
-            return Task.FromResult<IReadOnlyList<Alert>>(_alerts.ToList().AsReadOnly());
-        }
+        return Task.FromResult(_alertStore.GetAll());
     }
 
     public Task<bool> DeleteAlertAsync(Guid id)
     {
-        lock (_sync)
-        {
-            var removed = _alerts.RemoveAll(a => a.Id == id);
-            return Task.FromResult(removed > 0);
-        }
+        var result = _alertStore.RemoveById(id);
+        return Task.FromResult(result);
     }
 
     public async Task<bool> IsPairSupportedAsync(string pair)
     {
-        // Get all supported pairs from the rates provider
         var rates = await _ratesProvider.GetRatesAsync(new[]
         {
             ("USD", "CAD"),
@@ -76,3 +65,4 @@ public class InMemoryAlertService : IAlertService
         return rates.Any(r => r.Pair == pair);
     }
 }
+

@@ -145,7 +145,7 @@ defineExpose({ loadRates, loadAlerts })
       <div class="alerts-all">
         <h3>All Alerts ({{ state.alerts.length }})</h3>
         <div v-if="state.alerts.length === 0" class="empty-message">No alerts yet. Create one below.</div>
-        <div v-for="alert in state.alerts" :key="alert.id" class="alert" :class="{ 'alert-active': alert.triggered }">
+        <div v-for="alert in state.alerts" :key="alert.id" :class="{ 'alert-active': alert.triggered }">
           <div class="alert-content">
             <div class="alert-pair">{{ alert.pair }}</div>
             <div class="alert-details">

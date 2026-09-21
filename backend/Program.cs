@@ -22,7 +22,8 @@ builder.Services.AddHttpClient<RateAlerts.Api.Services.XeRatesClient>((sp, clien
 // Register rates provider
 builder.Services.AddScoped<RateAlerts.Api.Services.IRatesProvider, RateAlerts.Api.Services.XeRatesProvider>();
 
-// Register alert services
+// Register alert store and services
+builder.Services.AddSingleton<RateAlerts.Api.Services.IAlertStore, RateAlerts.Api.Services.InMemoryAlertStore>();
 builder.Services.AddSingleton<RateAlerts.Api.Services.AlertEvaluator>();
 builder.Services.AddScoped<RateAlerts.Api.Services.IAlertService, RateAlerts.Api.Services.InMemoryAlertService>();
 

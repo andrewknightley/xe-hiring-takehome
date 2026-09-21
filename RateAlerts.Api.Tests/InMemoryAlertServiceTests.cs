@@ -8,11 +8,13 @@ public class InMemoryAlertServiceTests
 {
     private readonly Mock<IRatesProvider> _mockRatesProvider;
     private readonly InMemoryAlertService _service;
+    private readonly FakeAlertStore _alertStore;
 
     public InMemoryAlertServiceTests()
     {
         _mockRatesProvider = new Mock<IRatesProvider>();
-        _service = new InMemoryAlertService(_mockRatesProvider.Object);
+        _alertStore = new FakeAlertStore();
+        _service = new InMemoryAlertService(_mockRatesProvider.Object, _alertStore);
     }
 
     [Fact]
