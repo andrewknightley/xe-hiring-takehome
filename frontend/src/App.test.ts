@@ -8,15 +8,24 @@ const fakeState = vi.hoisted(() => ({
     { pair: 'GBP/USD', rate: 1.25 },
     { pair: 'EUR/USD', rate: 1.1 },
   ] as any[],
+  alerts: [] as any[],
   lastUpdated: '',
+  showAlertForm: false,
+  newAlert: {
+    pair: 'USD/CAD',
+    threshold: '',
+    direction: 'above',
+  },
 }))
 vi.mock('./state', () => ({ state: fakeState }))
 
 import App from './App.vue'
 
 test('shows the cards and pokes state', async () => {
-  const fetchSpy = vi.fn(() =>
-    Promise.resolve({ json: () => Promise.resolve([{ pair: 'USD/CAD', rate: 9.9 }]) }),
+  const fetchSpy = vi.fn((url: string) =>
+    Promise.resolve({
+      json: () => Promise.resolve(url === '/api/alerts' ? [] : [{ pair: 'USD/CAD', rate: 9.9 }]),
+    }),
   )
   ;(globalThis as any).fetch = fetchSpy
 
@@ -40,8 +49,10 @@ test('shows the cards and pokes state', async () => {
   expect(fakeState.lastUpdated).not.toBe('')
 
   fakeState.lastUpdated = ''
-  const fetchSpy2 = vi.fn(() =>
-    Promise.resolve({ json: () => Promise.resolve([{ pair: 'GBP/USD', rate: 7.7 }]) }),
+  const fetchSpy2 = vi.fn((url: string) =>
+    Promise.resolve({
+      json: () => Promise.resolve(url === '/api/alerts' ? [] : [{ pair: 'GBP/USD', rate: 7.7 }]),
+    }),
   )
   ;(globalThis as any).fetch = fetchSpy2
   const wrapper = mount(App)
