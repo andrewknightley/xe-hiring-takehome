@@ -4,9 +4,9 @@
 Successfully implemented a complete rate alerts feature for the Xe Rate Board application. The feature allows users to define rate thresholds for currency pairs and get notified when rates cross those thresholds.
 
 ## Time Investment
-- **Total: ~2.5 hours** (within 3-hour target)
-  - Backend refactoring (HTTP client factory): ~30 min
-  - Alert feature backend (models, services, controller, tests): ~1.5 hours
+- **Total: ~3.5 hours**
+  - Backend refactoring (HTTP client factory): ~1 hour
+  - Alert feature backend (models, services, controller, tests): ~2.0 hours
   - Frontend integration (state, UI, API calls): ~30 min
 
 ## Architecture & Design Decisions
@@ -121,7 +121,7 @@ Successfully implemented a complete rate alerts feature for the Xe Rate Board ap
 ✅ Frontend integration  
 
 ### Deliberately Left / Known Limitations
-1. **No Persistence**: Alerts lost on restart. Would add EF Core DbContext + migrations in production.
+1. **No Persistence**: Alerts lost on restart. Would add EF Core DbContext/CosmosDB + migrations in production.
 2. **No Caching**: Rates fetched fresh on every `GET /api/alerts`. Could add TTL cache in `InMemoryAlertService` for performance.
 3. **No Polling/WebSockets**: Alerts only evaluated when user calls `GET`. A production system would use background jobs (Quartz) or WebSockets for real-time notifications.
 4. **Rate Fetch Errors**: Conservatively marks alerts as "not triggered" if rate fetch fails. Could log or surface errors better.
@@ -134,12 +134,14 @@ Successfully implemented a complete rate alerts feature for the Xe Rate Board ap
 ## What I Would Do Next (with more time)
 
 ### Priority 1 (Day 1)
+- [ ] Fix solution + project structure with consistent structure and naming conventions
 - [ ] Add EF Core with PostgreSQL persistence layer. Swap `InMemoryAlertService` for `EfAlertService`.
 - [ ] Add xUnit integration tests for `AlertsController` using `WebApplicationFactory`.
 - [ ] Add logging (Serilog) for rate fetch errors and alert evaluations.
+- [ ] Remove limited supported currency pairs
 
 ### Priority 2 (Day 2)
-- [ ] Implement background job (Quartz.NET) that evaluates alerts on a timer and sends email/Slack notifications.
+- [ ] Implement background job  that evaluates alerts on a timer and sends email/Slack notifications.
 - [ ] Add API rate limiting to prevent abuse.
 - [ ] Add user authentication (Auth0 or ASP.NET Core Identity) and multi-tenant support.
 
@@ -155,7 +157,7 @@ Successfully implemented a complete rate alerts feature for the Xe Rate Board ap
 
 ### What I Kept
 - **Architecture patterns**: Typed clients, dependency injection, service abstractions. All industry standard and proven.
-- **Test structure**: xUnit theory tests, Moq setup. Clear, maintainable.
+- **Test structure**: xUnit theory tests, Moq setup. Clear, maintainable. Note: aware the test project is misplaced and inconsistently named with other projects.
 - **API design**: RESTful resource model (POST/GET/DELETE). Clear and predictable.
 
 ### What I Rejected / Modified
@@ -216,4 +218,4 @@ Create an alert, refresh rates, watch the triggered state update.
 
 ---
 
-**End Notes**: This was a solid 2.5-hour sprint. The feature is production-ready minus persistence and background jobs. The code is testable, maintainable, and follows clean architecture principles. Looking forward to the follow-up conversation! 🚀
+**End Notes**: This was a solid 3.5-hour sprint. The feature is production-ready minus persistence and background jobs. The code is testable, maintainable, and follows clean architecture principles. Looking forward to the follow-up conversation! 🚀
