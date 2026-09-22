@@ -1,13 +1,50 @@
-# .NET
-bin/
-obj/
+# Temporary files and directories
+*.tmp
+*.temp
+*.bak
+*.cache
+*.log
+*.swp
+*.swo
+*~
+~$*
+[Tt]emp/
+[Tt]mp/
 
-# Node
-node_modules/
-dist/
+# .NET build outputs
+[Bb]in/
+[Oo]bj/
+[Aa]rtifacts/
+[Dd]ebug/
+[Rr]elease/
 
-# Editors / OS
+# Visual Studio
 .vs/
-.idea/
-.DS_Store
 *.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Test and coverage output
+TestResults/
+coverage/
+coverage-*/
+*.coverage
+*.coveragexml
+
+# NuGet packages and generated packages
+*.nupkg
+*.snupkg
+packages/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# VS Code — remove this section if settings are shared
+.vscode/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini

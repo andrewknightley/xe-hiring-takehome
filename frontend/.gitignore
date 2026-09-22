@@ -1,0 +1,19 @@
+# .NET
+bin/
+obj/
+TestResults/
+coverage/
+*.trx
+
+# Node
+node_modules/
+dist/
+
+# Editors / OS
+.vs/
+.idea/
+.DS_Store
+*.user
+
+# The take-home brief itself, not project code
+Xe-Take-Home-Rate-Alerts-CSharp-Vue.pdf
